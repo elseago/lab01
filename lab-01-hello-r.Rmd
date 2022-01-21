@@ -66,6 +66,7 @@ Add code and narrative as needed.
 Note that two R chunks are given but they are not labeled.
 Use the convention from above to name them appropriately.
 
+Plot circle dataset:
 ```{r plot-circle}
 circle_data <- datasaurus_dozen %>%
   filter(dataset == "circle")
@@ -73,7 +74,7 @@ circle_data <- datasaurus_dozen %>%
 ggplot(data = circle_data, mapping = aes(x = x, y = y)) +
   geom_point()
 ```
-
+Calculate correlation between x and y for circle dataset.
 ```{r cor-circle}
 circle_data %>%
   summarize(r = cor(x,y))
@@ -85,6 +86,19 @@ Add code and narrative as needed.
 
 To add R chunks either type out the backticks, curly braces, and the letter `r` or use the Insert chunk button above, green C+.
 
+```{r plot-all}
+ggplot (datasaurus_dozen, aes(x = x, y = y, color = dataset)) +
+  geom_point() +
+  facet_wrap(~ dataset, ncol = 3) +
+  theme(legend.position = "none")
+```
+
+```{r corr-all}
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize(r = cor(x, y)) %>%
+  print(13)
+```
 
 
 ## Bonus Tips by Yoo Ri
